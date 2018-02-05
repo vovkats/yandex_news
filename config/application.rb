@@ -16,6 +16,7 @@ module YandexNews
     # -- all .rb files in that directory are automatically loaded.
 
     config.generators do |g|
+      g.test_framework :rspec
       g.template_engine :slim
     end
   end
