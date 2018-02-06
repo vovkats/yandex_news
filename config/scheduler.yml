@@ -1,0 +1,5 @@
+yandex_news:
+  every: "5m"
+  class: "YandexNewsJob"
+  queue: yandex_news
+  description: "Every 5 minutes get yandex news"

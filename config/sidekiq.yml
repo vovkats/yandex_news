@@ -1,0 +1,9 @@
+:concurrency: 5
+development:
+  :pidfile: tmp/pids/sidekiq.pid
+  :concurrency: 10
+production:
+  :concurrency: 10
+:queues:
+  - yandex_news
+  - default
