@@ -1,5 +1,5 @@
 module Op
-  module News
+  module YandexNews
     class Parse
       URL = 'https://news.yandex.ru/ru/index5.utf8.js'.freeze
       TIMEOUT_SECONDS = 10.freeze
@@ -33,9 +33,7 @@ module Op
         if news_string && news_string[0]
           JSON.parse(news_string[0]).map do |yandex_news|
             {
-              ts: yandex_news['ts'],
-              time: yandex_news['time'],
-              date: yandex_news['date'],
+              time: yandex_news['ts'].to_i,
               title: yandex_news['title'],
               description: yandex_news['descr']
             }
