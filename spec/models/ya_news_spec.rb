@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe YaNews, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe YaNews, type: :model do
+  %i(title description time).each do |attr|
+    it { is_expected.to validate_presence_of(attr) }
+  end
 end
