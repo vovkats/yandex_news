@@ -21,10 +21,16 @@ describe Op::AuthorsNews::Save do
     }
   end
 
+  shared_examples 'news is not created' do
+    it 'does not create news' do
+      expect{ save }.to_not change{ ::News.count }
+    end
+  end
+
   context 'when news does not exist' do
     let(:news) { FactoryBot.build(:news) }
 
-    context 'and attributes is valid' do
+    context 'and attributes are valid' do
       let(:attributes) { valid_attributes }
 
       it 'creates news' do
@@ -32,12 +38,14 @@ describe Op::AuthorsNews::Save do
       end
     end
 
-    context 'and attributes is not valid' do
+    context 'and attributes are not valid' do
       let(:attributes) { invalid_attributes }
 
       it 'does not create news' do
         expect{ save }.to_not change{ News.count }
       end
+
+      include_examples 'news is not created'
     end
   end
 
@@ -49,7 +57,7 @@ describe Op::AuthorsNews::Save do
       news.reload
     end
 
-    context 'and attributes is valid' do
+    context 'and attributes are valid' do
       let(:attributes) { valid_attributes }
 
       it 'updates news' do
@@ -61,9 +69,11 @@ describe Op::AuthorsNews::Save do
           expect(news.time).to eq(Time.at(attributes[:time]))
         end
       end
+
+      include_examples 'news is not created'
     end
 
-    context 'and attributes is not valid' do
+    context 'and attributes are not valid' do
       let(:attributes) { invalid_attributes }
 
       it 'does not update news' do
