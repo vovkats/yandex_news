@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Op::News::Parse do
+describe Op::YandexNews::Parse do
   let(:parse) { described_class.execute }
 
   context 'when resource is unavailable' do
@@ -54,7 +54,7 @@ describe Op::News::Parse do
         news = parse[:news].first
 
         aggregate_failures 'news attributes' do
-          %i(ts time date title description).each do |key|
+          %i(time title description).each do |key|
             expect(news).to have_key(key)
           end
         end
