@@ -99,6 +99,4 @@ describe Op::AuthorsNews::Save do
       expect(save).to be_instance_of(::News)
     end
   end
-
-
 end

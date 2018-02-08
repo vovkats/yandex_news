@@ -95,6 +95,4 @@ describe Op::YandexNews::Save do
       expect(save).to be_instance_of(::YaNews)
     end
   end
-
-
 end
