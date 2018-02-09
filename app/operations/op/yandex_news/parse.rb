@@ -63,8 +63,6 @@ module Op
           []
         end
       end
-
-
     end
   end
 end
