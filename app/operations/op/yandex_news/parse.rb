@@ -7,6 +7,7 @@ module Op
 
       TimeoutError = Class.new(StandardError)
       CorrespondingContentNotFound = Class.new(StandardError)
+      CorruptedData = Class.new(StandardError)
 
       def self.execute
         new.execute
@@ -19,11 +20,30 @@ module Op
 
       def execute
         @news = parse(data)
+        check_data_on_errors
 
         { errors: @errors, news: @news}
       end
 
       private
+
+      def data
+        response = RestClient::Request.execute(method: :get, url: URL, timeout: TIMEOUT_SECONDS)
+        response.body
+      rescue RestClient::Exceptions::Timeout
+        @errors << TimeoutError.new
+        nil
+      end
+
+      def check_data_on_errors
+        @news.each do |news|
+          if news[:time].zero? || news[:description].blank? || news[:title].blank?
+            @errors << CorruptedData.new
+            @news = []
+            break
+          end
+        end
+      end
 
       def parse(data)
         return [] unless data
@@ -44,13 +64,7 @@ module Op
         end
       end
 
-      def data
-        response = RestClient::Request.execute(method: :get, url: URL, timeout: TIMEOUT_SECONDS)
-        response.body
-      rescue RestClient::Exceptions::Timeout
-        @errors << TimeoutError.new
-        nil
-      end
+
     end
   end
 end

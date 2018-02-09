@@ -60,5 +60,21 @@ describe Op::YandexNews::Parse do
         end
       end
     end
+
+    context 'and data is corrupted' do
+      before do
+        allow(RestClient::Request).to receive(:execute) do
+          double(body: File.read("#{TEST_DATA}/news/corrupted_data.txt"))
+        end
+      end
+
+      it 'has Op::News::Parse::CorruptedData' do
+        expect(parse[:errors]).to contain_exactly(described_class::CorruptedData)
+      end
+
+      it 'returns empty news result' do
+        expect(parse[:news]).to be_blank
+      end
+    end
   end
 end
