@@ -1,5 +1,7 @@
 class YandexNewsJob < ApplicationJob
   queue_as :yandex_news
 
-  def perform; end
+  def perform
+    Op::YandexNews::Load.execute
+  end
 end

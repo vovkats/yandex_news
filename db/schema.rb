@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208133544) do
+ActiveRecord::Schema.define(version: 20180209095755) do
 
   create_table "news", force: :cascade do |t|
     t.string "title"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20180208133544) do
     t.datetime "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "main", default: false
+    t.boolean "main", default: true
     t.index ["main"], name: "index_ya_news_on_main"
   end
 
