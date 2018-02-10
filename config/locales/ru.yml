@@ -29,7 +29,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+ru:
   authors_news:
     errors:
-      can_not_find_actual_authors_news: "can not find actual authors news"
+      can_not_find_actual_authors_news: "Нет актуальной авторской новости"
