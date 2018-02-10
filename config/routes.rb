@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   mount ActionCable.server => '/cable'
-  resource :news, only: :show
+
+  resource :news, except: [:destroy]
 
   root to: 'news#show'
 end
