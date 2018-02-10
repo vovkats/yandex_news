@@ -92,12 +92,7 @@ module Op
       end
 
       def broadcast_to_news_channel
-        ActionCable.server.broadcast(
-          'news_channel',
-          time: @main_yandex_news[:time],
-          title: @main_yandex_news[:title],
-          description: @main_yandex_news[:description]
-        )
+        Op::MainNews::Broadcast.execute(@main_yandex_news)
       end
 
       def save_news

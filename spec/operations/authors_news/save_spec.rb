@@ -36,6 +36,17 @@ describe Op::AuthorsNews::Save do
       it 'creates news' do
         expect{ save }.to change{ News.count }.by(1)
       end
+
+      it 'sends data to NewsChannel' do
+        expect(ActionCable.server).to receive(:broadcast).with(
+          'news_channel',
+          title: attributes[:title],
+          description: attributes[:description],
+          time: Time.at(attributes[:time])
+        )
+
+        save
+      end
     end
 
     context 'and attributes are not valid' do
