@@ -16,7 +16,9 @@ describe NewsResultSerializer do
     end
 
     it 'serialize news' do
-      expect(as_json['data']).to eq(NewsSerializer.new(news_result[:news]).as_json)
+      expect(as_json['data']).to eq(
+        NewsSerializer.new(news_result[:news]).serialize[:data]
+      )
     end
 
     it 'contains empty field errors' do
@@ -37,7 +39,9 @@ describe NewsResultSerializer do
     end
 
     it 'serialize news' do
-      expect(as_json['data']).to eq(NewsSerializer.new(news_result[:news]).as_json)
+      expect(as_json['data']).to eq(
+        NewsSerializer.new(news_result[:news]).serialize[:data]
+      )
     end
 
     it 'contains empty field errors' do

@@ -1,8 +1,6 @@
 class NewsSerializer < BaseSerializer
   NEWS_ATTRIBUTES = %i(title description show_until time)
 
-  private
-
   def serialize
     {}.tap do |json|
       if data.errors.present?
@@ -14,6 +12,6 @@ class NewsSerializer < BaseSerializer
       end
 
       json[:data] = data.as_json(only: NEWS_ATTRIBUTES)
-    end.stringify_keys
+    end
   end
 end

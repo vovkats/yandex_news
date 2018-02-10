@@ -1,11 +1,9 @@
 class NewsResultSerializer < BaseSerializer
 
-  private
-
   def serialize
     {}.tap do |json|
       json[:errors] = data[:errors]
-      json[:data] = NewsSerializer.new(data[:news]).as_json
+      json[:data] = NewsSerializer.new(data[:news]).serialize[:data]
 
       json[:status] =
         if data[:errors].present?
@@ -13,6 +11,6 @@ class NewsResultSerializer < BaseSerializer
         else
           SUCCESS_STATUS
         end
-    end.stringify_keys
+    end
   end
 end

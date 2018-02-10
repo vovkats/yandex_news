@@ -8,11 +8,9 @@ class BaseSerializer
     @data = data
   end
 
-  def as_json
-    serialize
+  def as_json(args = nil)
+    serialize.stringify_keys
   end
-
-  private
 
   def serialize
     raise NotImplementedError, 'need to implement method serialize'
