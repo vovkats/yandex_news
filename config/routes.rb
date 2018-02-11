@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   resource :news, except: [:destroy]
 
+  get '/admin' => 'admin#show'
   root to: 'home#show'
 end
