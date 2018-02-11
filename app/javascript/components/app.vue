@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+    <v-app>
+      <v-content>
+        <v-alert color="success" icon="check_circle" value="true">
+          {{ message }}
+        </v-alert>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
