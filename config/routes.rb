@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   resource :news, except: [:destroy]
 
-  root to: 'news#show'
+  root to: 'home#show'
 end
