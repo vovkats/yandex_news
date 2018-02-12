@@ -1,5 +1,5 @@
 class NewsSerializer < BaseSerializer
-  NEWS_ATTRIBUTES = %i(title description show_until time)
+  NEWS_ATTRIBUTES = %i(id title description show_until time)
 
   def serialize
     {}.tap do |json|

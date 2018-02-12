@@ -1,4 +1,5 @@
 class NewsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
 
   def show
@@ -12,8 +13,7 @@ class NewsController < ApplicationController
   end
 
   def update
-    render json: NewsResultSerializer.new(
-        Op::AuthorsNews::Update.execute(news_params))
+    render json: NewsResultSerializer.new(Op::AuthorsNews::Update.execute(news_params))
   end
 
   private

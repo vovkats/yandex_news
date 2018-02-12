@@ -1,23 +1,15 @@
-<template>
-  <div id="app">
-    <v-app>
-      <v-content>
-        <v-alert color="success" icon="check_circle" value="true">
-          {{ message }}
-        </v-alert>
-      </v-content>
-    </v-app>
-  </div>
+<template lang="pug">
+  v-app
+    authors-form
 </template>
 
 <script>
-export default {
-  data: function () {
-    return {
-      message: "Hello!"
-    }
+
+  import AuthorsForm from './authors-form.vue'
+
+  export default {
+    components: { AuthorsForm }
   }
-}
 </script>
 
 <style scoped>
