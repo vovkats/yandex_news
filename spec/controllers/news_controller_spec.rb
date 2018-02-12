@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::NewsController do
+describe NewsController do
 
   before do
     sign_in FactoryBot.create(:user)

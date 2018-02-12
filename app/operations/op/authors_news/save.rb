@@ -16,7 +16,10 @@ module Op
         @news.tap do |n|
           n.title = attributes[:title]
           n.description = attributes[:description]
-          n.time = n.time || Time.at(attributes[:time].to_i)
+
+          unless n.persisted?
+            n.time = Time.at(attributes[:time].to_i)
+          end
           n.show_until = attributes[:show_until]
 
           send_news(n) if n.save

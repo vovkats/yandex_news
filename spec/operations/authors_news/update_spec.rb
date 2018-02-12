@@ -52,7 +52,7 @@ describe Op::AuthorsNews::Update do
             expect(news.public_send(attr_name)).to eq(attributes[attr_name])
           end
 
-          expect(news.time).to eq(Time.at(attributes[:time]))
+          expect(news.time).to_not eq(Time.at(attributes[:time]))
         end
       end
 
@@ -61,7 +61,7 @@ describe Op::AuthorsNews::Update do
           'news_channel',
           title: attributes[:title],
           description: attributes[:description],
-          time: Time.at(attributes[:time])
+          time: Time.at(news.reload.time)
         )
 
         update
