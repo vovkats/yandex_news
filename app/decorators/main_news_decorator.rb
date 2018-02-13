@@ -1,7 +1,7 @@
-class NewsDecorator < Draper::Decorator
+class MainNewsDecorator < Draper::Decorator
 
   def time
-    if object.time
+    if object.try(:time)
       object.time.strftime('%F %H:%M')
     else
       'Обновление времени'
@@ -9,7 +9,7 @@ class NewsDecorator < Draper::Decorator
   end
 
   def title
-    if object.title
+    if object.try(:title)
       object.title
     else
       'Обновление заголовка'
@@ -17,7 +17,7 @@ class NewsDecorator < Draper::Decorator
   end
 
   def description
-    if object.description
+    if object.try(:description)
       object.description
     else
       'Обновление описания'

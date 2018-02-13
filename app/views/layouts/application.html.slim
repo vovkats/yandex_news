@@ -7,6 +7,14 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+      span.navbar-brand.mb-0.h1 Новости
+      ul.navbar-nav.ml-auto
+        li.nav-item
+          - if current_user
+            = link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-danger'
+          - else
+            = link_to 'Войти', new_user_session_path, class: 'btn btn-primary'
     .container.d-flex.h-100
       .row.align-self-center.w-100
         = yield

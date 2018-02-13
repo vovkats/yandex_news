@@ -4,7 +4,10 @@ html
     title Admin page
     link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet"
     = javascript_pack_tag 'app'
+    = csrf_meta_tags
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
+    = link_to 'Выйти', destroy_user_session_path, method: :delete
     = yield
 
 

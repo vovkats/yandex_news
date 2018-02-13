@@ -3,7 +3,7 @@ require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {sessions: 'users/sessions'}
   mount Sidekiq::Web => '/sidekiq'
 
   mount ActionCable.server => '/cable'

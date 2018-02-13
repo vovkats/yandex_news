@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
   def show
-    @news = Op::AuthorsNews::Get.execute.decorate
+    @news = MainNewsDecorator.decorate(Op::MainNews::Get.execute)
   end
 end
