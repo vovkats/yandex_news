@@ -12,13 +12,14 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
 import('vuetify/dist/vuetify.min.css')
-document.addEventListener('DOMContentLoaded', () => {
-    const el = document.body.appendChild(document.createElement('hello'))
-    const app = new Vue({
-        el,
-        render: h => h(App)
-    })
-})
+window.onload = function () {
+    if(document.getElementById("app")){
+        const app = new Vue({
+            el: '#app',
+            render: h => h(App)
+        })
+    }
+};
 
 
 // The above code uses Vue without the compiler, which means you cannot
