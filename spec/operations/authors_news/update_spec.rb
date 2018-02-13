@@ -61,7 +61,7 @@ describe Op::AuthorsNews::Update do
           'news_channel',
           title: attributes[:title],
           description: attributes[:description],
-          time: Time.at(news.reload.time)
+          time: Time.at(news.reload.time).strftime('%F %H:%M')
         )
 
         update

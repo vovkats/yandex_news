@@ -1,20 +1,12 @@
 jQuery(document).on 'turbolinks:load', ->
   App.cable.subscriptions.create { channel: "NewsChannel" },
     received: (data) ->
-      @appendLine(data)
+      @updateNewsAttributes(data)
 
     connected: ->
       console.log("connect")
 
-    appendLine: (data) ->
-      html = @createLine(data)
-      $(".news").html(html)
-
-    createLine: (data) ->
-      """
-      <article class="chat-line">
-        <span class="speaker">#{data["title"]}</span>
-        <span class="body">#{data["description"]}</span>
-        <span class="body">#{data["time"]}</span>
-      </article>
-      """
+    updateNewsAttributes: (data) ->
+      $(".news .title").text(data["title"])
+      $(".news .description").text(data["description"])
+      $(".news .time").text(data["time"])

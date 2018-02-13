@@ -42,7 +42,7 @@ describe Op::AuthorsNews::Save do
           'news_channel',
           title: attributes[:title],
           description: attributes[:description],
-          time: Time.at(attributes[:time])
+          time: Time.at(attributes[:time]).strftime('%F %H:%M')
         )
 
         save

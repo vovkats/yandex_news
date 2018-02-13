@@ -1,1 +1,9 @@
-.news
+.col-6.mx-auto
+  .card.border-secondary.mb-3.news
+    .card-header.time
+      = @news.time
+    .card-body.text-secondary
+      h5.card-title.title
+        = @news.title
+      p.card-text.description
+        = @news.description

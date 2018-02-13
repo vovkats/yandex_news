@@ -154,7 +154,7 @@
                 let newsParams = {
                     title: newsData.title,
                     description: newsData.description,
-                    time: new Date().getTime(),
+                    time: parseInt(new Date().getTime() / 1000),
                     show_until: new Date(`${this.$data.news.date} ${this.$data.news.time}`)
                 };
 

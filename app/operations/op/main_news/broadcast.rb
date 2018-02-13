@@ -5,7 +5,7 @@ module Op
       def self.execute(news)
         ActionCable.server.broadcast(
           'news_channel',
-          time: news[:time],
+          time: news[:time].strftime('%F %H:%M'),
           title: news[:title],
           description: news[:description]
         )

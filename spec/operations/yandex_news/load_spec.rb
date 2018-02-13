@@ -7,7 +7,7 @@ describe Op::YandexNews::Load do
     it 'sends data to channel' do
       expect(ActionCable.server).to receive(:broadcast).with('news_channel',
         time: main_news[:time],
-        title: main_news[:title],
+        title: main_news[:title].strftime('%F %H:%M'),
         description: main_news[:description]
       )
       load
