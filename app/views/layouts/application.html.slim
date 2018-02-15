@@ -9,7 +9,7 @@ html
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       span.navbar-brand.mb-0.h1 Новости
-      ul.navbar-nav.ml-auto
+      ul.navbar-nav.ml-auto.mr-4
         li.nav-item
           - if current_user
             = link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-danger'

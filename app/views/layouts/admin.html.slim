@@ -5,9 +5,17 @@ html
     link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet"
     = javascript_pack_tag 'app'
     = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = link_to 'Выйти', destroy_user_session_path, method: :delete
-    = yield
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+      span.navbar-brand.mb-0.h1 Новости
+      ul.navbar-nav.ml-auto.mr-4
+        li.nav-item
+          = link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-default'
+    .container-fluid.mt-5
+      .row
+        .col-md-12
+          = yield
 
 
