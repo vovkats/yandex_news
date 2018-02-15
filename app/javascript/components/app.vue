@@ -1,6 +1,7 @@
 <template lang="pug">
   v-app
-    authors-form
+    v-container
+      authors-form
 </template>
 
 <script>
