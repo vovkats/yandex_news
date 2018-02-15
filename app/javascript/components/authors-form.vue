@@ -89,6 +89,7 @@
 <script>
     import axios from 'axios'
     import strftime from 'strftime'
+    import NewsResponse from '../helpers/news_response'
 
     export default {
         data: function () {
@@ -142,11 +143,12 @@
                 if (this.$refs.form.validate()) {
                     if (this.persistedNews) {
                         axios.patch('/news', { news: newsParams }).then((response) => {
-                            this.$data.sendData = true;
+                            NewsResponse.check(this, response['data']);
                         })
                     } else {
                         axios.post('/news', { news: newsParams }).then((response) => {
-                            this.$data.sendData = true;
+                            NewsResponse.check(this, response['data']);
+                            this.$data.news.id = response["data"]["data"]["id"];
                         })
                     }
                 } else {
