@@ -18,6 +18,18 @@
           Проверьте данные
         </v-alert>
 
+        <v-alert v-for="(error, index) in news.errors"
+                 outline
+                 color="error"
+                 icon="check_circle"
+                 transition="scale-transition"
+                 v-model="news.errors[index]"
+                 dismissible>
+            {{error}}
+        </v-alert>
+
+
+
         <v-text-field
                 label="Заголовок"
                 v-model="news.title"
@@ -90,6 +102,7 @@
     import axios from 'axios'
     import strftime from 'strftime'
     import NewsResponse from '../helpers/news_response'
+    import ShowUntilValidator from '../helpers/show_until_validator'
 
     export default {
         data: function () {
@@ -104,7 +117,8 @@
                     date: null,
                     time: null,
                     title: null,
-                    description: null
+                    description: null,
+                    errors: []
                 },
                 menuDate: null,
                 menuTime: null,
@@ -124,26 +138,36 @@
         methods: {
             submit() {
                 let newsData = this.$data.news;
+                let showUntil = new Date(`${this.$data.news.date} ${this.$data.news.time}`);
+
+                let formValid = this.$refs.form.validate();
+                let showUntilValid = ShowUntilValidator.validate(this, showUntil);
+
+                if (formValid && showUntilValid) {
+                    this.$data.sendData = true;
+                    this.$data.sendFault = false;
+                } else {
+                    this.$data.sendData = false;
+                    this.$data.sendFault = true;
+                    return false;
+                }
+
                 let newsParams = {
                     title: newsData.title,
                     description: newsData.description,
                     time: parseInt(new Date().getTime() / 1000),
-                    show_until: new Date(`${this.$data.news.date} ${this.$data.news.time}`)
+                    show_until: showUntil
                 };
 
-                if (this.$refs.form.validate()) {
-                    if (this.persistedNews) {
-                        axios.patch('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
-                            NewsResponse.check(this, response['data']);
-                        })
-                    } else {
-                        axios.post('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
-                            NewsResponse.check(this, response['data']);
-                            this.$data.news.id = response["data"]["data"]["id"];
-                        })
-                    }
+                if (this.persistedNews) {
+                    axios.patch('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
+                        NewsResponse.check(this, response['data']);
+                    })
                 } else {
-                    this.$data.sendFault = true;
+                    axios.post('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
+                        NewsResponse.check(this, response['data']);
+                        this.$data.news.id = response["data"]["data"]["id"];
+                    })
                 }
             },
             allowedDates: (val) => {
