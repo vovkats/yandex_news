@@ -23,7 +23,7 @@ describe Op::AuthorsNews::Update do
 
   context 'when actual authors news does not exist' do
     let!(:news) do
-      FactoryBot.build(:news).tap do |n|
+      build(:news).tap do |n|
         n.show_until = Time.zone.now - 10.seconds
         n.save(validate: false)
       end
@@ -40,7 +40,7 @@ describe Op::AuthorsNews::Update do
 
   context 'when actual authors news exists' do
     let!(:news) do
-      FactoryBot.create(:news, show_until: Time.zone.now + 10.seconds)
+      create(:news, show_until: Time.zone.now + 10.seconds)
     end
 
     context 'and attributes are valid' do
@@ -111,13 +111,8 @@ describe Op::AuthorsNews::Update do
   end
 
   describe "operations's result" do
-    let(:attributes) do
-      {}
-    end
-
-    let(:news) do
-      FactoryBot.build(:news)
-    end
+    let(:attributes) { {} }
+    let(:news) { build(:news) }
 
     it 'returns Hash' do
       aggregate_failures 'result structure' do

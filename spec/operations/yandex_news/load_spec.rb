@@ -63,7 +63,9 @@ describe Op::YandexNews::Load do
     end
 
     context 'and yandex news with such title exists' do
-      let!(:ya_news) { FactoryBot.create(:ya_news, title: news.first[:title], main: false) }
+      let!(:ya_news) do
+        create(:ya_news, title: news.first[:title], main: false)
+      end
 
       it 'does not create yandex news' do
         expect { load }.to_not change { ::YaNews.count }
@@ -82,7 +84,7 @@ describe Op::YandexNews::Load do
     end
 
     context 'and yandex news with such title does not exist' do
-      let!(:previous_ya_news) { FactoryBot.create(:ya_news, main: true) }
+      let!(:previous_ya_news) { create(:ya_news, main: true) }
 
       it 'creates yandex news' do
         expect { load }.to change { ::YaNews.count }.by(1)
@@ -95,7 +97,7 @@ describe Op::YandexNews::Load do
 
       include_examples 'broadcasting to NewsChannel' do
         let(:main_news) do
-          FactoryBot.build(:ya_news,
+          build(:ya_news,
             title: news.first[:title],
             description: news.first[:description],
             time: Time.at(news.first[:time]))
@@ -104,7 +106,7 @@ describe Op::YandexNews::Load do
 
       context 'and authors news exists' do
         let!(:authors_news) do
-          FactoryBot.create(:news, show_until: Time.zone.now + 10.seconds)
+          create(:news, show_until: Time.zone.now + 10.seconds)
         end
 
         it 'creates yandex news' do

@@ -4,7 +4,7 @@ describe Op::AuthorsNews::Get do
   let(:get) { described_class.execute }
 
   context 'when actual authors news exists' do
-    let!(:news) { FactoryBot.create(:news, show_until: Time.zone.now + 10.seconds )}
+    let!(:news) { create(:news, show_until: Time.zone.now + 10.seconds )}
 
     it 'returns saved authors news' do
       expect(get).to eq(news)

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe NewsController do
 
   before do
-    sign_in FactoryBot.create(:user)
+    sign_in create(:user)
   end
 
   shared_examples 'json news response' do
@@ -29,7 +29,7 @@ describe NewsController do
 
   describe '#show' do
     let!(:news) do
-      FactoryBot.create(:news, show_until: Time.zone.now + 10.seconds)
+      create(:news, show_until: Time.zone.now + 10.seconds)
     end
 
     before do
@@ -49,7 +49,7 @@ describe NewsController do
 
   describe '#update' do
     let!(:news) do
-      FactoryBot.create(:news, show_until: Time.zone.now + 10.seconds)
+      create(:news, show_until: Time.zone.now + 10.seconds)
     end
 
     before do

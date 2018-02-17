@@ -7,7 +7,7 @@ describe NewsResultSerializer do
     let(:news_result) do
       {
         errors: [],
-        news: FactoryBot.create(:news)
+        news: create(:news)
       }
     end
 
@@ -30,7 +30,7 @@ describe NewsResultSerializer do
     let(:news_result) do
       {
         errors: ['some error'],
-        news: FactoryBot.create(:news)
+        news: create(:news)
       }
     end
 

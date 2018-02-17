@@ -4,7 +4,7 @@ describe NewsSerializer do
   let(:as_json) { described_class.new(news).as_json }
 
   context 'when news does not have errors' do
-    let(:news) { FactoryBot.create(:news) }
+    let(:news) { create(:news) }
 
     it 'sets status field to "success"' do
       expect(as_json['status']).to eq(described_class::SUCCESS_STATUS)
@@ -23,7 +23,7 @@ describe NewsSerializer do
 
   context 'when news has errors' do
     let(:news) do
-      FactoryBot.build(:news, title: '').tap(&:save)
+      build(:news, title: '').tap(&:save)
     end
 
     it 'sets status field to "error"' do

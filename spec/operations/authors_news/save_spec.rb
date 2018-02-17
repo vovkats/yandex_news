@@ -28,7 +28,7 @@ describe Op::AuthorsNews::Save do
   end
 
   context 'when news does not exist' do
-    let(:news) { FactoryBot.build(:news) }
+    let(:news) { build(:news) }
 
     context 'and attributes are valid' do
       let(:attributes) { valid_attributes }
@@ -61,7 +61,9 @@ describe Op::AuthorsNews::Save do
   end
 
   context 'when news has already existed' do
-    let(:news) { FactoryBot.create(:news, title: 'working title', time: Time.at(Time.now.to_i - 100.seconds)) }
+    let(:news) do
+      create(:news, title: 'working title', time: Time.at(Time.now.to_i - 100.seconds))
+    end
 
     before do
       save
@@ -98,13 +100,8 @@ describe Op::AuthorsNews::Save do
   end
 
   describe "operations's result" do
-    let(:attributes) do
-      {}
-    end
-
-    let(:news) do
-      FactoryBot.build(:news)
-    end
+    let(:attributes) { {} }
+    let(:news) { build(:news)}
 
     it 'returns News object' do
       expect(save).to be_instance_of(::News)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 
 describe ShowUntilValidator do
-  subject { FactoryBot.build(:news, show_until: show_until) }
+  subject { build(:news, show_until: show_until) }
 
   context 'without show until time' do
     let(:show_until) { nil }
