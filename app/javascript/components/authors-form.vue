@@ -142,11 +142,11 @@
 
                 if (this.$refs.form.validate()) {
                     if (this.persistedNews) {
-                        axios.patch('/news', { news: newsParams }).then((response) => {
+                        axios.patch('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
                             NewsResponse.check(this, response['data']);
                         })
                     } else {
-                        axios.post('/news', { news: newsParams }).then((response) => {
+                        axios.post('/news', { news: newsParams, authenticity_token: window._token }).then((response) => {
                             NewsResponse.check(this, response['data']);
                             this.$data.news.id = response["data"]["data"]["id"];
                         })
