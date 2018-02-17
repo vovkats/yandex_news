@@ -1,7 +1,7 @@
 module Op
   module AuthorsNews
     class Save
-      def self.execute(news, attributes)
+      def self.execute(news, attributes = {})
         new(news, attributes).execute
       end
 
@@ -16,10 +16,20 @@ module Op
         @news.tap do |n|
           n.title = attributes[:title]
           n.description = attributes[:description]
-          n.time = Time.at(attributes[:time].to_i)
+
+          unless n.persisted?
+            n.time = Time.at(attributes[:time].to_i)
+          end
           n.show_until = attributes[:show_until]
-          n.save
+
+          send_news(n) if n.save
         end
+      end
+
+      private
+
+      def send_news(news)
+        Op::MainNews::Broadcast.execute(news)
       end
     end
   end

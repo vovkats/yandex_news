@@ -36,6 +36,17 @@ describe Op::AuthorsNews::Save do
       it 'creates news' do
         expect{ save }.to change{ News.count }.by(1)
       end
+
+      it 'sends data to NewsChannel' do
+        expect(ActionCable.server).to receive(:broadcast).with(
+          'news_channel',
+          title: attributes[:title],
+          description: attributes[:description],
+          time: Time.at(attributes[:time]).strftime('%F %H:%M')
+        )
+
+        save
+      end
     end
 
     context 'and attributes are not valid' do
@@ -50,7 +61,7 @@ describe Op::AuthorsNews::Save do
   end
 
   context 'when news has already existed' do
-    let(:news) { FactoryBot.create(:news, title: 'working title') }
+    let(:news) { FactoryBot.create(:news, title: 'working title', time: Time.at(Time.now.to_i - 100.seconds)) }
 
     before do
       save
@@ -66,7 +77,7 @@ describe Op::AuthorsNews::Save do
             expect(news.public_send(attr_name)).to eq(attributes[attr_name])
           end
 
-          expect(news.time).to eq(Time.at(attributes[:time]))
+          expect(news.time).to_not eq(Time.at(attributes[:time]))
         end
       end
 

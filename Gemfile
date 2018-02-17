@@ -39,6 +39,12 @@ gem 'sidekiq-scheduler'
 gem 'devise'
 gem 'rest-client'
 gem 'jquery-rails'
+gem 'webpacker', '~> 3.2'
+
+gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
+gem 'draper'
+
+gem 'foreman'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

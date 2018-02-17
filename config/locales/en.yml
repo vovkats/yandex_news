@@ -30,4 +30,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  authors_news:
+    errors:
+      can_not_find_actual_authors_news: "can not find actual authors news"
