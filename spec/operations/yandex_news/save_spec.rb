@@ -26,7 +26,7 @@ describe Op::YandexNews::Save do
   end
 
   context 'when news does not exist' do
-    let(:news) { FactoryBot.build(:ya_news) }
+    let(:news) { build(:ya_news) }
 
     context 'and attributes are valid' do
       let(:attributes) { valid_attributes }
@@ -44,7 +44,7 @@ describe Op::YandexNews::Save do
   end
 
   context 'when news has already existed' do
-    let(:news) { FactoryBot.create(:ya_news, title: 'working title') }
+    let(:news) { create(:ya_news, title: 'working title') }
 
     before do
       save
@@ -83,13 +83,8 @@ describe Op::YandexNews::Save do
   end
 
   describe "operations's result" do
-    let(:attributes) do
-      {}
-    end
-
-    let(:news) do
-      FactoryBot.build(:ya_news)
-    end
+    let(:attributes) { {} }
+    let(:news) { build(:ya_news) }
 
     it 'returns YandexNews object' do
       expect(save).to be_instance_of(::YaNews)
