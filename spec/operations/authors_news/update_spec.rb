@@ -8,7 +8,7 @@ describe Op::AuthorsNews::Update do
       title: '',
       description: Faker::Lorem.sentence(3),
       time: 1518022111,
-      show_until: Time.at(1518025221)
+      show_until: Time.at((Time.zone.now - 10.seconds).to_i)
     }
   end
 
@@ -17,13 +17,16 @@ describe Op::AuthorsNews::Update do
       title: Faker::Lorem.word,
       description: Faker::Lorem.sentence(3),
       time: 1518021127,
-      show_until: Time.at(1518025987)
+      show_until: Time.at((Time.zone.now + 10.seconds).to_i)
     }
   end
 
   context 'when actual authors news does not exist' do
     let!(:news) do
-      FactoryBot.create(:news, show_until: Time.zone.now - 10.seconds)
+      FactoryBot.build(:news).tap do |n|
+        n.show_until = Time.zone.now - 10.seconds
+        n.save(validate: false)
+      end
     end
 
     let(:attributes) { {} }

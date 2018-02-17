@@ -7,8 +7,8 @@ describe Op::AuthorsNews::Save do
     {
         title: '',
         description: Faker::Lorem.sentence(3),
-        time: 1518022111,
-        show_until: Time.at(1518025221)
+        time: Time.zone.now.to_i,
+        show_until: Time.at((Time.zone.now - 10.seconds).to_i)
     }
   end
 
@@ -16,8 +16,8 @@ describe Op::AuthorsNews::Save do
     {
         title: Faker::Lorem.word,
         description: Faker::Lorem.sentence(3),
-        time: 1518021127,
-        show_until: Time.at(1518025987)
+        time: Time.zone.now.to_i,
+        show_until: Time.at((Time.zone.now + 10.seconds).to_i)
     }
   end
 

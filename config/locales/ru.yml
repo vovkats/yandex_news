@@ -33,3 +33,19 @@ ru:
   authors_news:
     errors:
       can_not_find_actual_authors_news: "Нет актуальной авторской новости"
+  activerecord:
+    errors:
+      models:
+        news:
+          attributes:
+            title:
+              blank: "Заголовок должен быть заполнен"
+            description:
+              blank: "Описание должно быть заполенено"
+            time:
+              blank: "Время создание не может быть пустым"
+            user:
+              required: "У новости должен быть автор"
+            show_until:
+              wrong_time: "Время актуальности новости должно быть заполнено и быть больше текущего времени"
+

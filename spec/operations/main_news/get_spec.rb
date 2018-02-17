@@ -14,7 +14,12 @@ describe Op::MainNews::Get do
 
   context 'when only actual yandex news exists' do
     let!(:ya_news) { FactoryBot.create(:ya_news, main: true) }
-    let!(:news) { FactoryBot.create(:news, show_until: Time.zone.now - 10.seconds ) }
+    let!(:news) do
+      FactoryBot.build(:news).tap do |n|
+        n.show_until = Time.zone.now - 10.seconds
+        n.save
+      end
+    end
 
     it 'returns yandex news' do
       expect(save).to eq(ya_news)
