@@ -52,7 +52,7 @@
                     required
                     readonly>
             </v-text-field>
-            <v-date-picker locale="ru-Latn" v-model="news.date"></v-date-picker>
+            <v-date-picker locale="ru-Latn" v-model="news.date" :allowed-dates="allowedDates"></v-date-picker>
         </v-menu>
 
         <v-menu :close-on-content-click="false"
@@ -123,6 +123,10 @@
                 if (news["show_until"]) {
                     self.$data.news.time = strftime('%H:%M', new Date(news["show_until"]));
                     self.$data.news.date = strftime('%F', new Date(news["show_until"]));
+                } else {
+                    let currentTime = new Date();
+                    self.$data.news.time = strftime('%H:%M', currentTime);
+                    self.$data.news.date = strftime('%F', currentTime);
                 }
 
             })
@@ -152,8 +156,13 @@
                         })
                     }
                 } else {
-                    this.$data.sendFault = true
+                    this.$data.sendFault = true;
                 }
+            },
+            allowedDates: (val) => {
+                let choosenDate = new Date(val).setHours(0, 0, 0, 0);
+                let currentDate = new Date().setHours(0, 0, 0, 0);
+                return choosenDate >= currentDate
             }
         },
         computed: {
@@ -163,10 +172,3 @@
         }
     }
 </script>
-
-<style scoped>
-    p {
-        font-size: 2em;
-        text-align: center;
-    }
-</style>
