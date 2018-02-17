@@ -113,22 +113,9 @@
             }
         },
         mounted: function () {
-            let self = this;
             axios.get('/news')
             .then((response) => {
-                let news = response.data["data"];
-                self.$data.news.title = news["title"];
-                self.$data.news.description = news["description"];
-                self.$data.news.id = news["id"];
-                if (news["show_until"]) {
-                    self.$data.news.time = strftime('%H:%M', new Date(news["show_until"]));
-                    self.$data.news.date = strftime('%F', new Date(news["show_until"]));
-                } else {
-                    let currentTime = new Date();
-                    self.$data.news.time = strftime('%H:%M', currentTime);
-                    self.$data.news.date = strftime('%F', currentTime);
-                }
-
+                NewsResponse.initData(this, response.data["data"]);
             })
             .catch(function (error) {
                 console.log(error);
