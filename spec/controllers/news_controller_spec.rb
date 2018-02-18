@@ -2,11 +2,7 @@ require 'rails_helper'
 
 describe NewsController do
 
-  before do
-    sign_in create(:user)
-  end
-
-  shared_examples 'json news response' do
+  shared_examples 'authorized user' do
     it 'has filed "status" in json data' do
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body).to have_key(:status)
@@ -27,35 +23,70 @@ describe NewsController do
     end
   end
 
-  describe '#show' do
-    let!(:news) do
-      create(:news, show_until: Time.zone.now + 10.seconds)
+  shared_examples 'unauthorized user' do
+    it 'redirects on sing in page' do
+      expect(subject).to redirect_to(new_user_session_path)
     end
-
-    before do
-      get :show
-    end
-
-    it_behaves_like 'json news response'
   end
 
-  describe '#create' do
+  context 'when user is authorized' do
+
     before do
-      post :create, params: { news: { title: '1', description: '2' } }
+      sign_in create(:user)
     end
 
-    it_behaves_like 'json news response'
+    describe '#show' do
+      let!(:news) do
+        create(:news, show_until: Time.zone.now + 10.seconds)
+      end
+
+      before { get :show }
+
+      it_behaves_like 'authorized user'
+    end
+
+    describe '#create' do
+      before do
+        post :create, params: { news: { title: '1', description: '2' } }
+      end
+
+      it_behaves_like 'authorized user'
+    end
+
+    describe '#update' do
+      let!(:news) do
+        create(:news, show_until: Time.zone.now + 10.seconds)
+      end
+
+      before do
+        post :update, params: { news: { title: '1', description: '2' } }
+      end
+
+      it_behaves_like 'authorized user'
+    end
   end
 
-  describe '#update' do
-    let!(:news) do
-      create(:news, show_until: Time.zone.now + 10.seconds)
+  context 'when user is not authorized' do
+    describe '#show' do
+      subject { get :show }
+
+      it_behaves_like 'unauthorized user'
     end
 
-    before do
-      post :update, params: { news: { title: '1', description: '2' } }
+    describe '#create' do
+      subject do
+        post :create, params: { news: { title: '1', description: '2' } }
+      end
+
+      it_behaves_like 'unauthorized user'
     end
 
-    it_behaves_like 'json news response'
+    describe '#update' do
+      subject do
+        post :update, params: { news: { title: '1', description: '2' } }
+      end
+
+      it_behaves_like 'unauthorized user'
+    end
   end
 end
