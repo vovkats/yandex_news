@@ -1,24 +1,41 @@
 # README
+Read the manual 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## HOW TO RUN APP
+* Run
+```
+bundle install
+```
 
-Things you may want to cover:
+```
+yarn install
+```
 
-* Ruby version
+```
+cp config/secrets.example.yml config/secrets.yml
+```
 
-* System dependencies
+```
+cp config/database.example.yml config/database.yml
+```
 
-* Configuration
+```
+cp config/cable.example.yml config/cable.yml
+```
 
-* Database creation
+```
+rake db:{drop,create,migrate}
+```
+```
+rake db:seed
+```
+```
+foreman start
+```
 
-* Database initialization
+## User credentials
+`email: user@example.com`
+`password: rootroot`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Requirements
+redis, ruby, yarn, node
